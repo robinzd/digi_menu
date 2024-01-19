@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image to Base64 and AJAX</title>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+</head>
+<body>
+
+<input type="file" id="uploadInput" accept="image/*" onchange="handleFileSelect()">
+
+
+<script>
+function handleFileSelect() {
+    const input = document.getElementById('uploadInput');
+    
+    if (input.files && input.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            const base64String = e.target.result;
+            console.log('Base64:', base64String);
+            // Send the base64String via AJAX
+            sendBase64Data(base64String);
+        };
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+function sendBase64Data(base64String) {
+    // AJAX POST request using jQuery
+    console.log(base64String)
+    $.ajax({
+        type: 'POST',
+        url: './ajax/index_ajax.php', // Replace with your server endpoint
+        data: { imageData: base64String },
+        success: function(response) {
+            console.log('Server Response:', response);
+            // Handle the server response as needed
+        },
+        error: function(error) {
+            console.error('Error:', error);
+        }
+    });
+}
+</script>
+
+</body>
+</html>
