@@ -22,22 +22,16 @@
 </head>
 
 <body>
-
-  <!-- ======= Header ======= -->
   <header id="header" class="header fixed-top d-flex align-items-center">
     <div class="container d-flex align-items-center justify-content-between">
       <a href="./db_connection/conn.php" class="logo d-flex align-items-center me-auto me-lg-0">
-        <!-- Uncomment the line below if you also wish to use an image logo -->
         <!-- <img src="assets/img/logo.png" alt=""> -->
         <h1>Yummy<span>.</span></h1>
       </a>
       <nav id="navbar" class="navbar">
-        <ul>
-          <li><a href="#about">About</a></li>
-          <li><a href="#menu">Menu</a></li>
-          <li><a href="#contact">Contact</a></li>
+        <ul id="header_menu">
         </ul>
-      </nav><!-- .navbar -->
+      </nav>
       <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
       <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
     </div>
@@ -45,34 +39,16 @@
   </br>
 
   <main id="main">
-
-    <!-- ======= About Section ======= -->
     <section id="about" class="about">
       <div class="container" data-aos="fade-up">
-
         <div class="section-header">
           <h2>About Us</h2>
           <p>Know More <span>About Us</span></p>
         </div>
-        <div class="row gy-4">
-          <div class="col-lg-7 position-relative about-img" style="background-image: url(assets/img/about.jpg) ;" data-aos="fade-up" data-aos-delay="150">
-          </div>
-          <div class="col-lg-5 d-flex align-items-start" data-aos="fade-up" data-aos-delay="300">
-            <div class="content ps-0 ps-lg-5">
-              <p class="fst-italic">
-                We Will Spend Good Food and satisfying food......
-              </p>
-            </div>
-          </div>
+        <div class="row gy-4" id="about_section">
         </div>
-
       </div>
     </section>
-    <!-- End About Section -->
-
-
-
-    <!-- ======= Menu Section ======= -->
     <section id="menu" class="menu">
       <div class="container" data-aos="fade-up">
         <div class="section-header">
@@ -84,93 +60,30 @@
         <div class="tab-content" data-aos="fade-up" data-aos-delay="300">
         </div>
       </div>
-    </section><!-- End Menu Section -->
-
-  </main><!-- End #main -->
-
-  <!-- ======= Footer ======= -->
+    </section>
+  </main>
   <footer id="footer" class="footer">
-
     <div class="container">
-      <div class="row gy-3">
-        <div class="col-lg-3 col-md-6 d-flex">
-          <i class="bi bi-geo-alt icon"></i>
-          <div>
-            <h4>Address</h4>
-            <p>
-              A108 Adam Street <br>
-              New York, NY 535022 - US<br>
-            </p>
-          </div>
-
-        </div>
-
-        <div class="col-lg-3 col-md-6 footer-links d-flex">
-          <i class="bi bi-telephone icon"></i>
-          <div>
-            <h4>Reservations</h4>
-            <p>
-              <strong>Phone:</strong> +1 5589 55488 55<br>
-              <strong>Email:</strong> info@example.com<br>
-            </p>
-          </div>
-        </div>
-
-        <div class="col-lg-3 col-md-6 footer-links d-flex">
-          <i class="bi bi-clock icon"></i>
-          <div>
-            <h4>Opening Hours</h4>
-            <p>
-              <strong>Mon-Sat: 11AM</strong> - 23PM
-              Sunday: Closed
-            </p>
-          </div>
-        </div>
-
-        <div class="col-lg-3 col-md-6 footer-links">
-          <h4>Follow Us</h4>
-          <div class="social-links d-flex">
-            <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
-            <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
-            <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
-            <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
-          </div>
-        </div>
-
+      <div class="row gy-3" id="footer_section">
       </div>
     </div>
-
-
     <div class="container">
       <div class="copyright">
         &copy; Copyright <strong><span>Yummy</span></strong>. All Rights Reserved
       </div>
       <div class="credits">
-        <!-- All the links in the footer should remain intact. -->
-        <!-- You can delete the links only if you purchased the pro version. -->
-        <!-- Licensing information: https://bootstrapmade.com/license/ -->
-        <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/yummy-bootstrap-restaurant-website-template/ -->
-        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+        Designed by <a href="https://bootstrapmade.com/">Robin</a>
       </div>
     </div>
-
-  </footer><!-- End Footer -->
-  <!-- End Footer -->
-
+  </footer>
   <a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
-
   <div id="preloader"></div>
-
-  <!-- Vendor JS Files -->
   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="assets/vendor/aos/aos.js"></script>
   <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
   <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
   <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
   <script src="assets/vendor/php-email-form/validate.js"></script>
-
-
-
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
   <script src='./assets/vendor/jquery/jquery_v3.5.1.js'> </script>
@@ -205,9 +118,50 @@
         },
       });
       // menu div ajax call //
+      // menu header ajax call //
+      $.ajax({
+        type: "POST",
+        url: url,
+        dataType: 'json',
+        delay: 250,
+        data: {
+          source: 'header_menu',
+        },
+        success: function(result) {
+          $("#header_menu").html(result);
+        },
+      });
+      // menu header ajax call //
+      // about section ajax call //
+      $.ajax({
+        type: "POST",
+        url: url,
+        dataType: 'json',
+        delay: 250,
+        data: {
+          source: 'about_section',
+        },
+        success: function(result) {
+          $("#about_section").html(result);
+        },
+      });
+      // about section ajax call //
+      // address section ajax call //
+      $.ajax({
+        type: "POST",
+        url: url,
+        dataType: 'json',
+        delay: 250,
+        data: {
+          source: 'footer_section',
+        },
+        success: function(result) {
+          $("#footer_section").html(result);
+        },
+      });
+      // address section ajax call //
     });
   </script>
-
 </body>
 
 </html>
