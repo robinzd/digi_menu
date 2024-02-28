@@ -17,6 +17,9 @@
   <link href="assets/vendor/aos/aos.css" rel="stylesheet">
   <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
   <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+  <!-- owl carousle css -->
+  <link href="assets/vendor/owl-carousle-css/owl.carousel.min.css" rel="stylesheet">
+  <link href="assets/vendor/owl-carousle-css/owl.theme.default.css" rel="stylesheet">
   <!-- Template Main CSS File -->
   <link href="assets/css/main.css" rel="stylesheet">
 </head>
@@ -46,6 +49,35 @@
           <p>Know More <span>About Us</span></p>
         </div>
         <div class="row gy-4" id="about_section">
+        </div>
+      </div>
+    </section>
+
+    <section id="service" class="service">
+      <div class="container" data-aos="fade-up">
+        <div class="section-header">
+          <h2>Service</h2>
+          <p>About Our<span> Service</span></p>
+        </div>
+        <div class="owl-carousel owl-carousel1 owl-theme">
+          <?php
+          include('./db_connection/conn.php');
+          $get_service_section = "SELECT * FROM service_access WHERE status = 1";
+          $run_service_section =  mysqli_query($conn, $get_service_section);
+          while ($getting_service_section = mysqli_fetch_array($run_service_section)) {
+            $image = $getting_service_section['image'];
+            $heading = $getting_service_section['heading'];
+            $description = $getting_service_section['description'];
+            echo "<div>
+                <div class='card text-center'><img class='card-img-top' src='$image' alt=''>
+                  <div class='card-body'>
+                    <h5>$heading</h5>
+                    <p class='card-text'>$description</p>
+                  </div>
+                </div>
+              </div>";
+          }
+          ?>;
         </div>
       </div>
     </section>
@@ -87,6 +119,8 @@
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
   <script src='./assets/vendor/jquery/jquery_v3.5.1.js'> </script>
+  <!--owl carousle js-->
+  <script src='assets/vendor/owlcarousle-js/owl.carousel.min.js'></script>
   <script>
     // menu heading ajax call //
     $(document).ready(function() {
@@ -160,6 +194,40 @@
         },
       });
       // address section ajax call //
+      // service section owl-carasoule //
+      (function() {
+        "use strict";
+
+        var carousels = function() {
+          $(".owl-carousel1").owlCarousel({
+            loop: true,
+            center: true,
+            margin: 0,
+            responsiveClass: true,
+            nav: false,
+            responsive: {
+              0: {
+                items: 1,
+                nav: false
+              },
+              680: {
+                items: 2,
+                nav: false,
+                loop: false
+              },
+              1000: {
+                items: 3,
+                nav: true
+              }
+            }
+          });
+        };
+
+        (function($) {
+          carousels();
+        })(jQuery);
+      })();
+      // service section owl-carasoule //
     });
   </script>
 </body>
