@@ -27,9 +27,7 @@
 <body>
   <header id="header" class="header fixed-top d-flex align-items-center">
     <div class="container d-flex align-items-center justify-content-between">
-      <a href="./db_connection/conn.php" class="logo d-flex align-items-center me-auto me-lg-0">
-        <!-- <img src="assets/img/logo.png" alt=""> -->
-        <h1>Yummy<span>.</span></h1>
+      <a href="./db_connection/conn.php" class="logo d-flex align-items-center me-auto me-lg-0" id="logo_pic">
       </a>
       <nav id="navbar" class="navbar">
         <ul id="header_menu">
@@ -77,7 +75,7 @@
                 </div>
               </div>";
           }
-          ?>;
+          ?>
         </div>
       </div>
     </section>
@@ -99,13 +97,9 @@
       <div class="row gy-3" id="footer_section">
       </div>
     </div>
-    <div class="container">
-      <div class="copyright">
-        &copy; Copyright <strong><span>Yummy</span></strong>. All Rights Reserved
-      </div>
-      <div class="credits">
-        Designed by <a href="https://bootstrapmade.com/">Robin</a>
-      </div>
+    <div class="container" id="copyright">
+
+
     </div>
   </footer>
   <a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
@@ -124,6 +118,7 @@
   <script>
     // menu heading ajax call //
     $(document).ready(function() {
+      logo_section()
       var url = './ajax/index_ajax.php'
       $.ajax({
         type: "POST",
@@ -228,7 +223,26 @@
         })(jQuery);
       })();
       // service section owl-carasoule //
+
     });
+
+    function logo_section() {
+      var url = './ajax/index_ajax.php'
+      $.ajax({
+        type: "POST",
+        url: url,
+        dataType: 'json',
+        delay: 250,
+        data: {
+          source: 'logo_name_section',
+        },
+        success: function(result) {
+          $("#logo_pic").html(result.logo_div);
+          $("#copyright").html(result.copyright_div);
+        },
+      });
+    }
+    // logo section //
   </script>
 </body>
 

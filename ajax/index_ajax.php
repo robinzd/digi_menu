@@ -48,7 +48,7 @@ if ($source == 'menu_div') {
             $dish_image = $getting_final_menu['dish_image'];
             $dish_price = $getting_final_menu['dish_price'];
             $menu_divs .= "<div class='col-lg-4 menu-item'>
-                         <a href='assets/img/menu/menu-item-1.png' class='glightbox'><img src='assets/img/menu/$dish_image' class='menu-img img-fluid' alt=''></a>
+                         <a class='glightbox'><img src='$dish_image' class='menu-img img-fluid' alt=''></a>
                          <h4>$dish_name</h4>
                          <p class='ingredients'>
                           $dish_description
@@ -76,7 +76,7 @@ if ($source == 'menu_div') {
             $dish_image = $getting_final_menu['dish_image'];
             $dish_price = $getting_final_menu['dish_price'];
             $menu_divs .= "<div class='col-lg-4 menu-item'>
-                         <a href='assets/img/menu/menu-item-1.png' class='glightbox'><img src='assets/img/menu/$dish_image' class='menu-img img-fluid' alt=''></a>
+                         <a class='glightbox'><img src='$dish_image' class='menu-img img-fluid' alt=''></a>
                          <h4>$dish_name</h4>
                          <p class='ingredients'>
                           $dish_description
@@ -107,10 +107,12 @@ if ($source == 'about_section') {
    $get_about_section = "SELECT * FROM about_section WHERE status = 1";
    $run_about_section =  mysqli_query($conn, $get_about_section);
    $about_section = "";
+   $count = 1;
    while ($getting_about_section = mysqli_fetch_array($run_about_section)) {
       $about_image = $getting_about_section['image'];
       $description = $getting_about_section['description'];
-      $about_section .= "<div class='col-lg-7 position-relative about-img' style='background-image: url(assets/img/$about_image) ;' data-aos='fade-up' data-aos-delay='150'>
+      if ($count == 1) {
+         $about_section .= "<div class='col-lg-7 position-relative about-img' style='background-image: url($about_image) ;' data-aos='fade-up' data-aos-delay='150'>
       </div>
       <div class='col-lg-5 d-flex align-items-start' data-aos='fade-up' data-aos-delay='300'>
         <div class='content ps-0 ps-lg-5'>
@@ -119,6 +121,19 @@ if ($source == 'about_section') {
           </p>
         </div>
       </div>";
+         $count++;
+      } else if ($count > 1) {
+         $about_section .= "<div class='col-lg-7 position-relative about-img' style='background-image: url($about_image);margin-top:83px' data-aos='fade-up' data-aos-delay='150'>
+         </div>
+         <div class='col-lg-5 d-flex align-items-start' data-aos='fade-up' data-aos-delay='300' style='margin-top:83px;'>
+         <div class='content ps-0 ps-lg-5'>
+           <p class='fst-italic'>
+           $description
+           </p>
+         </div>
+       </div>";
+         $count++;
+      }
    }
    echo json_encode($about_section);
 }
@@ -211,4 +226,19 @@ if ($source == 'footer_section') {
       }
    }
    echo json_encode($footer_section);
+}
+
+if ($source == 'logo_name_section') {
+   $get_logo_section = "SELECT * FROM logos";
+   $run_logo_section =  mysqli_query($conn, $get_logo_section);
+   $getting_logo_section = mysqli_fetch_array($run_logo_section);
+   $logo = $getting_logo_section['logo'];
+   $shop_name = $getting_logo_section['name'];
+   $logo_div = " <img src='$logo' alt=''>";
+   $copyright_div = "<div class='copyright'>&copy;Copyright<strong><span> $shop_name </span></strong>All Rights Reserved </div>
+   <div class='credits'>
+   Developed by <a href='#'>❤️ Robin</a>
+   </div>";
+   $response = array('copyright_div' => $copyright_div, 'logo_div' => $logo_div);
+   echo json_encode($response);
 }
